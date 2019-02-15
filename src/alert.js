@@ -20,13 +20,13 @@ function alert(addon) {
         throw new TypeError("addon must be instanceof Addon");
     }
 
-    // Scoped Bind
-    const Alarm = getAlarm(event);
-
     // Scoped Variables
     const cache = [];
     const event = new SafeEmitter();
     event.catch((err) => console.error(err));
+
+    // Scoped Bind
+    const Alarm = getAlarm(event);
 
     event.on("create_alarm", (alarm) => {
         if (!addon.isAwake) {
@@ -34,6 +34,7 @@ function alert(addon) {
         }
 
         console.log("create alarm");
+        console.log(alarm);
 
         return void 0;
     });

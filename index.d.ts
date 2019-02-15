@@ -1,10 +1,31 @@
 /// <reference types="node" />
 /// <reference types="@slimio/addon" />
+/// <reference types="@slimio/tsd" />
+/// <reference types="@slimio/metrics" />
 
-declare function Alert(addon: Addon): void;
+import * as events from "events";
+
+declare class Alarm extends events {
+    constructor(message: string, options?: {
+        severity?: SlimIO.AlarmSeverity;
+        entity?: Metrics.Entity | string | number;
+    });
+    toJSON(): SlimIO.RawAlarm;
+
+    public cid: SlimIO.CID;
+    public severity: number;
+    public entity: Metrics.Entity | number;
+    public message: string;
+
+    static DefaultSeverity: number;
+    static Severity: SlimIO.AlarmSeverity;
+}
+
+declare function Alert(addon: Addon): {
+    Alarm: typeof Alarm;
+};
 
 declare namespace Alert {
-
 }
 
 export as namespace Alert;
