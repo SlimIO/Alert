@@ -1,6 +1,12 @@
 // Require Node.js Dependencies
 const events = require("events");
 
+// Require Third-party Dependencies
+const is = require("@slimio/is");
+
+// Require Internal Dependencies
+const { assertCK } = require("./utils");
+
 function exportClass(event) {
     /**
      * @class Alarm
@@ -13,6 +19,7 @@ function exportClass(event) {
          * @param {Object} [options] Alarm options
          * @param {Entity | Number | String} [options.entity] entity
          * @param {Number} [options.severity=1] alarm severity
+         * @param {String} [options.correlateKey] correlateKey
          *
          * @throws {TypeError}
          */
@@ -23,17 +30,19 @@ function exportClass(event) {
             }
 
             const { entity = 1, severity = Alarm.DefaultSeverity } = options;
-            if (typeof entity === "undefined" || entity === null) {
+            if (is.nullOrUndefined(entity)) {
                 throw new TypeError("entity must be a number or an Entity Object");
             }
             if (typeof severity !== "number") {
                 throw new TypeError("severity must be a number");
             }
+            assertCK(options.correlateKey);
 
             this.cid = null;
             this.severity = severity;
             this.message = message;
             this.entity = entity;
+            this.correlateKey = options.correlateKey;
 
             event.emit("create_alarm", this);
         }
@@ -47,7 +56,8 @@ function exportClass(event) {
             return {
                 message: this.message,
                 entity: this.entity,
-                severity: this.severity
+                severity: this.severity,
+                correlateKey: this.correlateKey
             };
         }
     }

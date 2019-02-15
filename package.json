@@ -25,6 +25,7 @@
     },
     "homepage": "https://github.com/SlimIO/Alert#readme",
     "dependencies": {
+        "@slimio/is": "^1.4.0",
         "@slimio/safe-emitter": "^1.0.6"
     },
     "devDependencies": {

@@ -8,7 +8,9 @@
     "source": {
         "include": [
             "index.js",
-            "./src/alert.js"
+            "./src/alert.js",
+            "./src/alarm.class.js",
+            "./src/utils.js"
         ],
         "exclude": [
             "node_modules",

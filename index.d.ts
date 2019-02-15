@@ -6,9 +6,10 @@
 import * as events from "events";
 
 declare class Alarm extends events {
-    constructor(message: string, options?: {
+    constructor(message: string, options: {
         severity?: SlimIO.AlarmSeverity;
         entity?: Metrics.Entity | string | number;
+        correlateKey: string;
     });
     toJSON(): SlimIO.RawAlarm;
 
@@ -16,6 +17,7 @@ declare class Alarm extends events {
     public severity: number;
     public entity: Metrics.Entity | number;
     public message: string;
+    public correlateKey: string;
 
     static DefaultSeverity: number;
     static Severity: SlimIO.AlarmSeverity;
