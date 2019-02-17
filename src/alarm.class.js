@@ -28,6 +28,9 @@ function exportClass(event) {
             if (typeof message !== "string") {
                 throw new TypeError("message must be a string");
             }
+            if (!is.plainObject(options)) {
+                throw new TypeError("options must be a plainObject");
+            }
 
             const { entity = 1, severity = Alarm.DefaultSeverity } = options;
             if (is.nullOrUndefined(entity)) {
@@ -55,7 +58,7 @@ function exportClass(event) {
         toJSON() {
             return {
                 message: this.message,
-                entity: this.entity,
+                entityId: this.entity,
                 severity: this.severity,
                 correlateKey: this.correlateKey
             };
