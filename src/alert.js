@@ -75,6 +75,22 @@ function alert(addon) {
             }
             alarm.entity = entity.id;
         }
+        else if (typeof alarm.entity === "number") {
+            let idFound = false;
+            for (let i = 0; i < 5; i++) {
+                const ret = await sendMessage("events.get_entity_by_id", [alarm.entity]);
+                if (!is.nullOrUndefined(ret)) {
+                    idFound = true;
+                    break;
+                }
+
+                await sleep(99);
+            }
+
+            if (!idFound) {
+                throw new Error(`Unable to found entity with id ${alarm.entity}`);
+            }
+        }
 
         alarm.cid = `${alarm.entity}#${alarm.correlateKey}`;
         const isOpen = await sendMessage("events.create_alarm", [alarm.toJSON()]);
