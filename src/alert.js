@@ -1,9 +1,11 @@
 // Require Third-party Dependencies
 const SafeEmitter = require("@slimio/safe-emitter");
+const is = require("@slimio/is");
+const TimeMap = require("@slimio/timemap");
 
 // Require Internal Dependencies
 const getAlarm = require("./alarm.class");
-const is = require("@slimio/is");
+const { sleep } = require("./utils");
 
 // CONSTANTS
 const TYPES = Object.freeze({ alarm: 0 });
@@ -23,7 +25,7 @@ function alert(addon) {
 
     // Scoped Variables
     const cache = [];
-    const alarms = new Map();
+    const alarms = new TimeMap();
     const event = new SafeEmitter();
     event.catch((err) => console.error(err));
 
@@ -37,8 +39,7 @@ function alert(addon) {
     addon.of("Alarm.open").subscribe({
         next(CID) {
             if (alarms.has(CID)) {
-                const alarm = alarms.get(CID);
-                alarm.emit("open");
+                alarms.get(CID).emit("open");
             }
         }
     });
@@ -48,19 +49,40 @@ function alert(addon) {
             return cache.push([TYPES.alarm, alarm]);
         }
 
-        // TODO: Wait for elements to be available!
-        if (typeof alarm.entity === "string") {
-            const entity = await sendMessage("events.search_entities", [{ name: alarm.entity }]);
+        if (alarm.entity.constructor.name === "Entity") {
+            const stop = await doWhile({ max: 6, ms: 5 }, () => alarm.entity.id === null);
+            if (stop) {
+                throw new Error("Entity.id is null");
+            }
+
+            alarm.entity = alarm.entity.id;
+        }
+        else if (typeof alarm.entity === "string") {
+            let entity;
+            for (let i = 0; i < 5; i++) {
+                entity = await sendMessage("events.search_entities", [{ name: alarm.entity }]);
+                if (is.nullOrUndefined(entity)) {
+                    await sleep(99);
+                    continue;
+                }
+
+                break;
+            }
+
             if (is.nullOrUndefined(entity)) {
-                throw new Error("Unable to found entity id!");
+                throw new Error(`Unable to found entity with name ${alarm.entity}`);
             }
             alarm.entity = entity.id;
         }
 
-        const CID = `${alarm.entity}#${alarm.correlateKey}`;
-        await sendMessage("events.create_alarm", [alarm.toJSON()]);
-        alarm.cid = CID;
-        alarms.set(CID, alarm);
+        alarm.cid = `${alarm.entity}#${alarm.correlateKey}`;
+        const isOpen = await sendMessage("events.create_alarm", [alarm.toJSON()]);
+        if (isOpen) {
+            alarm.emit("open");
+        }
+        else {
+            alarms.set(alarm.cid, alarm);
+        }
 
         return void 0;
     });
@@ -71,7 +93,7 @@ function alert(addon) {
             addon.lockOn("events");
         }
 
-        addon.on("awake", async() => {
+        addon.on("awake", () => {
             const tempLocalCache = cache.splice(0, cache.length).sort((a, b) => a[0] - b[0]);
             for (const [type, element] of tempLocalCache) {
                 event.emit(EVENT_MAP[type], element);

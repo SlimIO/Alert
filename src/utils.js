@@ -31,4 +31,8 @@ function assertCK(correlateKey) {
     }
 }
 
-module.exports = { doWhile, assertCK };
+function sleep(ms = 1000) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+module.exports = { doWhile, assertCK, sleep };
