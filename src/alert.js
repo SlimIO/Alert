@@ -5,9 +5,10 @@ const TimeMap = require("@slimio/timemap");
 
 // Require Internal Dependencies
 const getAlarm = require("./alarm.class");
-const { sleep } = require("./utils");
+const { sleep, doWhile } = require("./utils");
 
 // CONSTANTS
+const KEEP_TIME_MS = 30000;
 const TYPES = Object.freeze({ alarm: 0 });
 const EVENT_MAP = Object.freeze({
     [TYPES.alarm]: "create_alarm"
@@ -25,7 +26,7 @@ function alert(addon) {
 
     // Scoped Variables
     const cache = [];
-    const alarms = new TimeMap();
+    const alarms = new TimeMap(KEEP_TIME_MS);
     const event = new SafeEmitter();
     event.catch((err) => console.error(err));
 
