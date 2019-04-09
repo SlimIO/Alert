@@ -17,7 +17,41 @@ $ yarn add @slimio/alert
 ```
 
 ## Usage example
-TBC
+A simple addon that will throw an alarm every second...
+
+```js
+// Require Dependencies
+const Addon = require("@slimio/addon");
+const alert = require("@slimio/alert");
+const metrics = require("@slimio/metrics");
+
+// Declare addons
+const test = new Addon("test");
+const { Entity } = metrics(test);
+const { Alarm } = alert(test);
+
+let intervalId;
+const MyEntity = new Entity("MyEntity", {
+    description: "Hello world!"
+});
+
+test.on("awake", () => {
+    intervalId = setInterval(() => {
+        new Alarm("hello world!", {
+            correlateKey: "test_alarm",
+            entity: MyEntity
+        });
+    }, 1000);
+
+    test.ready();
+});
+
+test.on("close", () => {
+    clearInterval(intervalId);
+});
+
+module.exports = test;
+```
 
 ## API
 TBC
