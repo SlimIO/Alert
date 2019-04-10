@@ -5,7 +5,7 @@ const TimeMap = require("@slimio/timemap");
 
 // Require Internal Dependencies
 const getAlarm = require("./alarm.class");
-const { sleep, doWhile } = require("./utils");
+const { sleep, doWhile, handleVars } = require("./utils");
 
 // CONSTANTS
 const KEEP_TIME_MS = 30000;
@@ -35,6 +35,27 @@ function alert(addon) {
 
     function sendMessage(target, args) {
         return new Promise((resolve, reject) => addon.sendMessage(target, { args }).subscribe(resolve, reject));
+    }
+
+    function templateLoader(template) {
+        if (!is.plainObject(template)) {
+            throw new TypeError("template must be a plainObject");
+        }
+
+        const ret = Object.create(null);
+        for (const [name, data] of Object.entries(template)) {
+            if (!is.string(data.message) || !is.string(data.correlateKey)) {
+                continue;
+            }
+            const message = data.message;
+            delete data.message;
+
+            Reflect.defineProperty(ret, name, {
+                value: (payload) => new Alarm(handleVars(message, payload), data)
+            });
+        }
+
+        return Object.freeze(ret);
     }
 
     addon.of("Alarm.open").subscribe({
@@ -118,7 +139,7 @@ function alert(addon) {
         });
     });
 
-    return { Alarm };
+    return { Alarm, templateLoader };
 }
 
 module.exports = alert;

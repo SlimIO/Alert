@@ -21,9 +21,23 @@ declare class Alarm extends events {
 
 declare function Alert(addon: Addon): {
     Alarm: typeof Alarm;
+    templateLoader: <T>(template: Alert.Template) => Alert.TemplateResult<T>;
 };
 
 declare namespace Alert {
+    interface TemplateResult<T> {
+        [name: keyof T]: (payload?: T[keyof T]) => Alarm
+    }
+
+    interface Template {
+        [name: string]: {
+            message: string;
+            correlateKey: string;
+            severity?: number;
+            entity?: string | number;
+        }
+    }
+
     interface ConstructorOptions {
         severity?: SlimIO.AlarmSeverity;
         entity?: Metrics.Entity | string | number;
