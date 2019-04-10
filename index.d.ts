@@ -6,11 +6,7 @@
 import * as events from "events";
 
 declare class Alarm extends events {
-    constructor(message: string, options: {
-        severity?: SlimIO.AlarmSeverity;
-        entity?: Metrics.Entity | string | number;
-        correlateKey: string;
-    });
+    constructor(message: string, options: Alert.ConstructorOptions);
     toJSON(): SlimIO.RawAlarm;
 
     public cid: SlimIO.CID;
@@ -28,6 +24,11 @@ declare function Alert(addon: Addon): {
 };
 
 declare namespace Alert {
+    interface ConstructorOptions {
+        severity?: SlimIO.AlarmSeverity;
+        entity?: Metrics.Entity | string | number;
+        correlateKey: string;
+    }
 }
 
 export as namespace Alert;

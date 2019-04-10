@@ -54,7 +54,69 @@ module.exports = test;
 ```
 
 ## API
-TBC
+The alert package return a function described by the following interface:
+```ts
+declare function Alert(addon: Addon): {
+    Alarm: typeof Alarm;
+};
+```
+
+Each instance of Alarm are unique to the local Addon.
+
+### Alarm
+This section describe the methods and properties of Alarm Object.
+
+<details><summary>constructor(message: string, options: Alert.ConstructorOptions)</summary>
+<br />
+
+Create a new Alarm Object.
+```js
+new Alarm("hello world alarm", {
+    correlateKey: "test_alarm"
+});
+```
+
+Available options are described the following interface:
+```ts
+interface ConstructorOptions {
+    severity?: SlimIO.AlarmSeverity;
+    entity?: Metrics.Entity | string | number;
+    correlateKey: string;
+}
+```
+</details>
+
+<details><summary>toJSON(): SlimIO.RawAlarm</summary>
+<br />
+
+Return a raw alarm. Refer to `@slimio/tsd` for more information.
+</details>
+
+#### Properties
+
+```ts
+declare class Alarm extends events {
+    public cid: SlimIO.CID;
+    public severity: number;
+    public entity: Metrics.Entity | number;
+    public message: string;
+    public correlateKey: string;
+
+    static DefaultSeverity: number;
+    static Severity: SlimIO.AlarmSeverity;
+}
+```
+
+Severity is defined in `@slimio/tsd` as follow:
+```ts
+enum AlarmSeverity {
+    Critical,
+    Major,
+    Minor
+}
+```
+
+The default severity is defined as **1** for **Major**.
 
 ## License
 MIT
