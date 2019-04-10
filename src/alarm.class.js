@@ -3,9 +3,7 @@ const events = require("events");
 
 // Require Third-party Dependencies
 const is = require("@slimio/is");
-
-// Require Internal Dependencies
-const { assertCK } = require("./utils");
+const { assertCK } = require("@slimio/utils");
 
 function exportClass(event) {
     /**

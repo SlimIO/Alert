@@ -22,17 +22,8 @@ async function doWhile({ max = 1, ms = 1000 }, cond) {
     return false;
 }
 
-function assertCK(correlateKey) {
-    if (typeof correlateKey !== "string") {
-        throw new TypeError("correlateKey must be a string");
-    }
-    if (correlateKey.length < 1 || correlateKey.length > 14) {
-        throw new TypeError("correlateKey length must be betweeen 1 and 14");
-    }
-}
-
 function sleep(ms = 1000) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-module.exports = { doWhile, assertCK, sleep };
+module.exports = { doWhile, sleep };
