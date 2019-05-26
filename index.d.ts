@@ -1,4 +1,4 @@
-/// <reference types="node" />
+/// <reference types="@types/node" />
 /// <reference types="@slimio/addon" />
 /// <reference types="@slimio/tsd" />
 /// <reference types="@slimio/metrics" />
