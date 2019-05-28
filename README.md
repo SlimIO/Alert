@@ -118,5 +118,14 @@ enum AlarmSeverity {
 
 The default severity is defined as **1** for **Major**.
 
+## Dependencies
+
+|Name|Refactoring|Security Risk|Usage|
+|---|---|---|---|
+|[@slimio/is](https://github.com/SlimIO/is#readme)|Minor|Low|Type checker|
+|[@slimio/safe-emitter](https://github.com/SlimIO/safeEmitter#readme)|⚠️Major|Medium|Safe emitter|
+|[@slimio/timemap](https://github.com/SlimIO/TimeMap#readme)|⚠️Major|Low|Time map|
+|[@slimio/utils](https://github.com/SlimIO/Utils#readme)|Minor|High|Bunch of useful functions|
+
 ## License
 MIT
