@@ -81,7 +81,7 @@ function alert(addon) {
         }
         else if (typeof alarm.entity === "string") {
             let entity;
-            for (let i = 0; i < 5; i++) {
+            for (let id = 0; id < 5; id++) {
                 entity = await sendMessage("events.search_entities", [{ name: alarm.entity }]);
                 if (is.nullOrUndefined(entity)) {
                     await sleep(99);
@@ -98,7 +98,7 @@ function alert(addon) {
         }
         else if (typeof alarm.entity === "number") {
             let idFound = false;
-            for (let i = 0; i < 5; i++) {
+            for (let id = 0; id < 5; id++) {
                 const ret = await sendMessage("events.get_entity_by_id", [alarm.entity]);
                 if (!is.nullOrUndefined(ret)) {
                     idFound = true;
@@ -132,7 +132,7 @@ function alert(addon) {
         }
 
         addon.on("awake", () => {
-            const tempLocalCache = cache.splice(0, cache.length).sort((a, b) => a[0] - b[0]);
+            const tempLocalCache = cache.splice(0, cache.length).sort((leftOp, rightOp) => leftOp[0] - rightOp[0]);
             for (const [type, element] of tempLocalCache) {
                 event.emit(EVENT_MAP[type], element);
             }
