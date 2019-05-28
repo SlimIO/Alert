@@ -21,11 +21,11 @@ declare class Alarm extends events {
 
 declare function Alert(addon: Addon): {
     Alarm: typeof Alarm;
-    templateLoader: <T>(template: Alert.Template) => Alert.TemplateResult<T>;
+    templateLoader: <T extends string | number>(template: Alert.Template) => Alert.TemplateResult<T>;
 };
 
 declare namespace Alert {
-    interface TemplateResult<T> {
+    interface TemplateResult<T extends string | number> {
         [name: keyof T]: (payload?: T[keyof T]) => Alarm
     }
 
