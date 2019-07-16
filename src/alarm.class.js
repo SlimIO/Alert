@@ -1,3 +1,5 @@
+"use strict";
+
 // Require Node.js Dependencies
 const events = require("events");
 
@@ -5,19 +7,21 @@ const events = require("events");
 const is = require("@slimio/is");
 const { assertCK } = require("@slimio/utils");
 
+/**
+ * @function exportClass
+ * @param {*} event
+ * @returns {Alarm}
+ */
 function exportClass(event) {
-    /**
-     * @class Alarm
-     */
     class Alarm extends events {
         /**
-         * @constructor
+         * @class Alarm
          * @memberof Alarm#
-         * @param {!String} message Alarm message
-         * @param {Object} [options] Alarm options
-         * @param {Entity | Number | String} [options.entity] entity
-         * @param {Number} [options.severity=1] alarm severity
-         * @param {String} [options.correlateKey] correlateKey
+         * @param {!string} message Alarm message
+         * @param {object} [options] Alarm options
+         * @param {Entity|number|string} [options.entity] entity
+         * @param {number} [options.severity=1] alarm severity
+         * @param {string} [options.correlateKey] correlateKey
          *
          * @throws {TypeError}
          */
@@ -49,9 +53,9 @@ function exportClass(event) {
         }
 
         /**
-         * @method toJSON
+         * @function toJSON
          * @memberof Alarm#
-         * @returns {Object}
+         * @returns {object}
          */
         toJSON() {
             return {

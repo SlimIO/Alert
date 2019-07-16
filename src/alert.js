@@ -1,3 +1,6 @@
+/* eslint-disable require-atomic-updates */
+"use strict";
+
 // Require Third-party Dependencies
 const SafeEmitter = require("@slimio/safe-emitter");
 const is = require("@slimio/is");
@@ -15,7 +18,7 @@ const EVENT_MAP = Object.freeze({
 });
 
 /**
- * @func alert
+ * @function alert
  * @param {!Addon} addon SlimIO addon container
  * @returns {void}
  */
@@ -33,10 +36,11 @@ function alert(addon) {
     // Scoped Bind
     const Alarm = getAlarm(event);
 
-    function sendMessage(target, args) {
-        return new Promise((resolve, reject) => addon.sendMessage(target, { args }).subscribe(resolve, reject));
-    }
-
+    /**
+     * @function templateLoader
+     * @param {*} template
+     * @returns {Readonly<object>}
+     */
     function templateLoader(template) {
         if (!is.plainObject(template)) {
             throw new TypeError("template must be a plainObject");
@@ -82,7 +86,7 @@ function alert(addon) {
         else if (typeof alarm.entity === "string") {
             let entity;
             for (let id = 0; id < 5; id++) {
-                entity = await sendMessage("events.search_entities", [{ name: alarm.entity }]);
+                entity = await addon.sendOne("events.search_entities", [{ name: alarm.entity }]);
                 if (is.nullOrUndefined(entity)) {
                     await sleep(99);
                     continue;
@@ -99,7 +103,7 @@ function alert(addon) {
         else if (typeof alarm.entity === "number") {
             let idFound = false;
             for (let id = 0; id < 5; id++) {
-                const ret = await sendMessage("events.get_entity_by_id", [alarm.entity]);
+                const ret = await addon.sendOne("events.get_entity_by_id", [alarm.entity]);
                 if (!is.nullOrUndefined(ret)) {
                     idFound = true;
                     break;
@@ -114,7 +118,7 @@ function alert(addon) {
         }
 
         alarm.cid = `${alarm.entity}#${alarm.correlateKey}`;
-        const isOpen = await sendMessage("events.create_alarm", [alarm.toJSON()]);
+        const isOpen = await addon.sendOne("events.create_alarm", [alarm.toJSON()]);
         if (isOpen) {
             alarm.emit("open");
         }

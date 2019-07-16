@@ -1,14 +1,16 @@
+"use strict";
+
 /**
  * @namespace Utils
  */
 
 /**
  * @async
- * @func doWhile
+ * @function doWhile
  * @memberof Utils#
- * @param {Object} [options] options
+ * @param {object} [options] options
  * @param {any} cond condition to execute in do while
- * @returns {Boolean}
+ * @returns {boolean}
  */
 async function doWhile({ max = 1, ms = 1000 }, cond) {
     let maxRetry = max;
@@ -23,9 +25,9 @@ async function doWhile({ max = 1, ms = 1000 }, cond) {
 }
 
 /**
- * @func sleep
+ * @function sleep
  * @memberof Utils#
- * @param {!Number} ms milliseconds
+ * @param {!number} ms milliseconds
  * @returns {Promise<void>}
  */
 function sleep(ms = 1000) {
@@ -33,11 +35,11 @@ function sleep(ms = 1000) {
 }
 
 /**
- * @func handleVars
+ * @function handleVars
  * @memberof Utils#
- * @param {!String} message original message
- * @param {Object} [payload] payload data
- * @returns {String}
+ * @param {!string} message original message
+ * @param {object} [payload] payload data
+ * @returns {string}
  */
 function handleVars(message, payload = Object.create(null)) {
     const regex = /\${([\w]+)}/g;
