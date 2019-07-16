@@ -26,7 +26,7 @@ declare function Alert(addon: Addon): {
 
 declare namespace Alert {
     interface TemplateResult<T extends string | number> {
-        [name: keyof T]: (payload?: T[keyof T]) => Alarm
+        [name: string]: (payload?: T[keyof T]) => Alarm
     }
 
     interface Template {
