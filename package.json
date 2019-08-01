@@ -18,6 +18,13 @@
         "SlimIO",
         "monitoring"
     ],
+    "files": [
+        "src",
+        "index.js",
+        "index.d.ts",
+        ".eslintignore",
+        "slimio.toml"
+    ],
     "author": "SlimIO",
     "license": "MIT",
     "bugs": {
