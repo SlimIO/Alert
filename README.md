@@ -24,37 +24,27 @@ $ yarn add @slimio/alert
 A simple addon that will throw an alarm every second...
 
 ```js
-// Require Dependencies
-const Addon = require("@slimio/addon");
-const alert = require("@slimio/alert");
-const metrics = require("@slimio/metrics");
+import Addon from "@slimio/addon";
+import alert from "@slimio/alert";
+import metrics from "@slimio/metrics";
 
-// Declare addons
 const test = new Addon("test");
 const { Entity } = metrics(test);
 const { Alarm } = alert(test);
 
-let intervalId;
-const MyEntity = new Entity("MyEntity", {
+const ALARM_INTERVAL = 1_000;
+const MY_ENTITY = new Entity("MyEntity", {
     description: "Hello world!"
 });
 
-test.on("awake", () => {
-    intervalId = setInterval(() => {
-        new Alarm("hello world!", {
-            correlateKey: "test_alarm",
-            entity: MyEntity
-        });
-    }, 1000);
+test.registerInterval(() => {
+    new Alarm("hello world!", {
+        correlateKey: "test_alarm",
+        entity: MY_ENTITY
+    });
+}, ALARM_INTERVAL);
 
-    test.ready();
-});
-
-test.on("close", () => {
-    clearInterval(intervalId);
-});
-
-module.exports = test;
+export default test;
 ```
 
 ## API
