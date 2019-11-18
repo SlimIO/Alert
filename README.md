@@ -2,11 +2,10 @@
 ![version](https://img.shields.io/badge/dynamic/json.svg?url=https://raw.githubusercontent.com/SlimIO/Alert/master/package.json?token=AOgWw3vrgQuu-U4fz1c7yYZyc7XJPNtrks5catjdwA%3D%3D&query=$.version&label=Version)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/SlimIO/is/commit-activity)
 ![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)
-![dep](https://img.shields.io/david/SlimIO/Addon-Factory)
-![size](https://img.shields.io/github/languages/code-size/SlimIO/Addon-Factory)
-[![Known Vulnerabilities](https://snyk.io//test/github/SlimIO/Addon-Factory/badge.svg?targetFile=package.json)](https://snyk.io//test/github/SlimIO/Addon-Factory?targetFile=package.json)
-[![Build Status](https://travis-ci.com/SlimIO/Addon-Factory.svg?branch=master)](https://travis-ci.com/SlimIO/Addon-Factory)
-[![Greenkeeper badge](https://badges.greenkeeper.io/SlimIO/Addon-Factory.svg)](https://greenkeeper.io/)
+![dep](https://img.shields.io/david/SlimIO/Alert)
+![size](https://img.shields.io/github/languages/code-size/SlimIO/Alert)
+[![Known Vulnerabilities](https://snyk.io//test/github/SlimIO/Alert/badge.svg?targetFile=package.json)](https://snyk.io//test/github/SlimIO/Alert?targetFile=package.json)
+[![Build Status](https://travis-ci.com/SlimIO/Alert.svg?branch=master)](https://travis-ci.com/SlimIO/Alert)
 
 ## Requirements
 - [Node.js](https://nodejs.org/en/) v12 or higher
