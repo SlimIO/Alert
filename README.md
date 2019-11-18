@@ -1,10 +1,15 @@
 # Alert
-![V1.0](https://img.shields.io/badge/version-0.1.0-blue.svg)
+![version](https://img.shields.io/badge/dynamic/json.svg?url=https://raw.githubusercontent.com/SlimIO/Alert/master/package.json?token=AOgWw3vrgQuu-U4fz1c7yYZyc7XJPNtrks5catjdwA%3D%3D&query=$.version&label=Version)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/SlimIO/is/commit-activity)
 ![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)
+![dep](https://img.shields.io/david/SlimIO/Addon-Factory)
+![size](https://img.shields.io/github/languages/code-size/SlimIO/Addon-Factory)
+[![Known Vulnerabilities](https://snyk.io//test/github/SlimIO/Addon-Factory/badge.svg?targetFile=package.json)](https://snyk.io//test/github/SlimIO/Addon-Factory?targetFile=package.json)
+[![Build Status](https://travis-ci.com/SlimIO/Addon-Factory.svg?branch=master)](https://travis-ci.com/SlimIO/Addon-Factory)
+[![Greenkeeper badge](https://badges.greenkeeper.io/SlimIO/Addon-Factory.svg)](https://greenkeeper.io/)
 
 ## Requirements
-- [Node.js](https://nodejs.org/en/) v10 or higher
+- [Node.js](https://nodejs.org/en/) v12 or higher
 
 ## Getting Started
 
