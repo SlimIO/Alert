@@ -5,7 +5,7 @@
 ![dep](https://img.shields.io/david/SlimIO/Alert)
 ![size](https://img.shields.io/github/languages/code-size/SlimIO/Alert)
 [![Known Vulnerabilities](https://snyk.io//test/github/SlimIO/Alert/badge.svg?targetFile=package.json)](https://snyk.io//test/github/SlimIO/Alert?targetFile=package.json)
-[![Build Status](https://travis-ci.com/SlimIO/Alert.svg?branch=master)](https://travis-ci.com/SlimIO/Alert)
+[![Build Status](https://travis-ci.com/SlimIO/Alert.svg?branch=master)](https://travis-ci.com/SlimIO/Alert) [![Greenkeeper badge](https://badges.greenkeeper.io/SlimIO/Alert.svg)](https://greenkeeper.io/)
 
 ## Requirements
 - [Node.js](https://nodejs.org/en/) v12 or higher
