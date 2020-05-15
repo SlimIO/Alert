@@ -9,6 +9,8 @@
  * @function doWhile
  * @memberof Utils#
  * @param {object} [options] options
+ * @param {number} [options.max=1] maximum while
+ * @param {number} [options.ms=1000] time to wait in milliseconds
  * @param {any} cond condition to execute in do while
  * @returns {boolean}
  */
