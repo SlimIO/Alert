@@ -42,7 +42,7 @@
         "@slimio/addon": "^0.22.1",
         "@slimio/eslint-config": "^4.0.0",
         "@slimio/metrics": "^0.4.0",
-        "@slimio/psp": "^0.11.1",
+        "@slimio/psp": "^0.12.1",
         "@slimio/tsd": "^0.2.0",
         "@types/node": "^14.0.1",
         "ava": "^3.8.2",
